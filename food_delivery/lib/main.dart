@@ -1,27 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// final List<String> imgList = [
-//   'assets/images/sale.jpg',
-//   'assets/images/sale6.jpg',
-//   'assets/images/sale5.jpg',
-//   'assets/images/sale1.jpg',
-//   'assets/images/sale2.jpg',
-//   'assets/images/sale3.jpg',
-//   'assets/images/sale4.jpg',
-// ];
-// void main() {
-//   runApp(const Homescreen());
-// }
-
-// class Homescreen extends StatelessWidget {
-//   const Homescreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:food_delivery/scrollproduct.dart';
 void main() {
