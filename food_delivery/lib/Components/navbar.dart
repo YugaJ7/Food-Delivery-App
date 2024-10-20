@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/main.dart';
-import 'package:food_delivery/screens/home_screen.dart';
-import 'package:food_delivery/screens/orders.dart';
-import 'package:food_delivery/screens/notification.dart';
-import 'package:food_delivery/screens/profile_screen.dart';
+// import 'package:food_delivery/main.dart';
+// import 'package:food_delivery/screens/home_screen.dart';
+// import 'package:food_delivery/screens/orders.dart';
+// import 'package:food_delivery/screens/notification.dart';
+// import 'package:food_delivery/screens/profile_screen.dart';
 
 class Navbar extends StatelessWidget {
   @override
@@ -13,19 +13,19 @@ class Navbar extends StatelessWidget {
         backgroundColor: Colors.white,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home, color: Colors.orangeAccent),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.lock),
+            icon: Icon(Icons.lock, color: Colors.orangeAccent),
             label: 'Security',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+            icon: Icon(Icons.notifications, color: Colors.orangeAccent),
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.person, color: Colors.orangeAccent),
             label: 'Profile',
           ),
         ],

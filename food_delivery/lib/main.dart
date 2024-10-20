@@ -10,9 +10,8 @@ import 'screens/personal_data.dart';
 import 'screens/settings.dart';
 import 'screens/acc_delete.dart';
 import 'screens/add_acc.dart';
-import 'screens/security.dart';
+//import 'screens/security.dart';
 import 'screens/notification.dart';
-import 'scrollproduct.dart';
 void main() {
   runApp(FlutterApp());
 } 

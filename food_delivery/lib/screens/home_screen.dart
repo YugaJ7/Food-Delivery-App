@@ -2,230 +2,273 @@ import 'package:food_delivery/Components/navbar.dart';
 import 'package:food_delivery/main.dart';
 import 'package:food_delivery/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:food_delivery/Components/product.dart';
+import 'package:food_delivery/Components/product_card.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(200),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/image5.png'),
-                  fit: BoxFit.cover,
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   leading: Icon(Icons.menu, color: Colors.black),
+      //   actions: [
+      //     Icon(Icons.search, color: Colors.black),
+      //     SizedBox(width: 10),
+      //     Icon(Icons.shopping_cart, color: Colors.black),
+      //     SizedBox(width: 10),
+      //   ],
+      // ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              // Background image
+              Container(
+                height: 270,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/background.png'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
+              Positioned(
+                top: 50,
+                left: 16,
+                
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                           'Your Location',
+                             style: GoogleFonts.inter(
+                             textStyle: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w600))),
+                        SizedBox(width: 5),
+                        Icon(Icons.keyboard_arrow_down_sharp, color: Colors.white, size: 30)
+
+                      ],
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Icon(Icons.location_on_outlined, color: Colors.white, size: 30),
+                        SizedBox(width: 5),
+                          Text(
+                           'New York City',
+                             style: GoogleFonts.inter(
+                             textStyle: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w600))),
+                      ],
+                    ),
+                    
+                    SizedBox(height: 25),
+                    Text(
+                           'Provide the best \nfood for you',
+                             style: GoogleFonts.inter(
+                             textStyle: TextStyle(color: Colors.white,fontSize: 35, fontWeight: FontWeight.w600))),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                Text(
+                  'Find By Category',
+                  style: GoogleFonts.inter(
+                             textStyle: TextStyle(color: Colors.black,fontSize: 20, fontWeight: FontWeight.w600))
+                )
+              ],
             ),
-            AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Your Location', style: TextStyle(color: Colors.grey, fontSize: 14)),
-                  Row(
-                    children: [
-                      Icon(Icons.location_on, color: Colors.orange),
-                      Text('New York City', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                    ],
-                  ),           
-                ],
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.search, color: Colors.white),
-                  onPressed: () {},
+          ),
+          SizedBox(height: 16,),
+          // Categories section
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CategoryItem(
+                  iconPath: 'assets/images/c1.png',
+                  title: 'Burger',
                 ),
-                IconButton(
-                  icon: Icon(Icons.shopping_cart, color: Colors.white),
-                  onPressed: () {},
+                CategoryItem(
+                  iconPath: 'assets/images/c3.png',
+                  title: 'Snack',
+                ),
+                CategoryItem(
+                  iconPath: 'assets/images/c3.png',
+                  title: 'Drink',
+                ),
+                CategoryItem(
+                  iconPath: 'assets/images/c4.png',
+                  title: 'Pizza',
                 ),
               ],
-            )
-          ],
-        ),
-      ),
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Find by Category', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600)),
-            SizedBox(height: 16),
-            Container(
-              height: 65,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                children: [
-                  CategoryTile(icon: Icons.fastfood, label: 'Burger', isSelected: true),
-                  CategoryTile(icon: Icons.local_drink, label: 'Drinks'),
-                  CategoryTile(icon: Icons.local_pizza, label: 'Pizza'),
-                ],
-              ),
             ),
-            SizedBox(height: 16),
-            // Food Items Grid
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                childAspectRatio: 0.7,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                children: [
-                  FoodItemTile(
-                    name: 'Ordinary Burgers',
-                    image: 'assets/images/p1.png',
-                    rating: 4.9,
-                    price: '17,230',
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(15.0,0.0,15.0,10.0),
+              child:GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: (100/140),
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
                   ),
-                  FoodItemTile(
-                    name: 'Burger with Meat',
-                    image: 'assets/images/p1.png',
-                    rating: 4.8,
-                    price: '17,230',
-                  ),
-                  FoodItemTile(
-                    name: 'Ordinary Burgers',
-                    image: 'assets/images/p1.png',
-                    rating: 4.9,
-                    price: '17,230',
-                  ),
-                  FoodItemTile(
-                    name: 'Ordinary Burgers',
-                    image: 'assets/images/p1.png',
-                    rating: 4.9,
-                    price: '17,230',
-                  ),
-                  FoodItemTile(
-                    name: 'Ordinary Burgers',
-                    image: 'assets/images/p1.png',
-                    rating: 4.9,
-                    price: '17,230',
-                  ),
-                ],
-              ),
+                  scrollDirection: Axis.vertical,
+                  itemCount: MyProduct.allProducts.length,
+                  itemBuilder:(context, index) {
+                    final allProducts = MyProduct.allProducts[index];
+                    return ProductCard(product : allProducts);
+                  },
+                )
             ),
-          ],
-        ),
+          )
+        ],
       ),
-      bottomNavigationBar: Navbar()
+      bottomNavigationBar: Navbar(),
     );
   }
 }
+class MyProduct {
+  static List<Product> allProducts = [
+    Product(
+      name: 'Oridnary Burgers',
+      price: '\$29,990',
+      image: 'assets/images/b1.png',
+      rating: '4.9',
+      distance: '190m'),
+      Product(
+      name: 'Oridnary Burgers',
+      price: '\$29,990',
+      image: 'assets/images/b1.png',
+      rating: '4.9',
+      distance: '190m'),
+      Product(
+      name: 'Oridnary Burgers',
+      price: '\$29,990',
+      image: 'assets/images/b1.png',
+      rating: '4.9',
+      distance: '190m'),
+      Product(
+      name: 'Oridnary Burgers',
+      price: '\$29,990',
+      image: 'assets/images/b1.png',
+      rating: '4.9',
+      distance: '190m'),
+  ];
+}
 
-class CategoryTile extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final bool isSelected;
+class CategoryItem extends StatelessWidget {
+  final String iconPath;
+  final String title;
 
-  CategoryTile({required this.icon, required this.label, this.isSelected = false});
+  const CategoryItem({
+    required this.iconPath,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 35.0),
-      child: Column(
-        children: [
-          CircleAvatar(
-            backgroundColor: isSelected ? Colors.orange : Colors.grey[200],
-            child: Icon(icon, color: isSelected ? Colors.white : Colors.black),
+    return Column(
+      children: [
+        Container(
+          width: 60,
+          height: 60,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.orange.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(10),
           ),
-          SizedBox(height: 4),
-          Text(label, style: TextStyle(color: isSelected ? Colors.orange : Colors.black)),
-        ],
-      ),
+          child: Image.asset(iconPath, fit: BoxFit.contain),
+        ),
+        SizedBox(height: 5),
+        Text(title, style: TextStyle(fontSize: 14)),
+      ],
     );
   }
 }
 
-class FoodItemTile extends StatelessWidget {
+class FoodItemCard extends StatelessWidget {
+  final String imagePath;
   final String name;
-  final String image;
+  final double price;
   final double rating;
-  final String price;
+  final String size;
 
-  FoodItemTile({required this.name, required this.image, required this.rating, required this.price});
+  const FoodItemCard({
+    required this.imagePath,
+    required this.name,
+    required this.price,
+    required this.rating,
+    required this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width / 2,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey.shade300)
-        // boxShadow: [
-        //   BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 10, spreadRadius: 5),
-        // ],
+    return Card(
+      margin: EdgeInsets.only(bottom: 15),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 5.0, 0.0)),
-              Icon(
-                Icons.favorite_border_outlined,
-                color: Colors.orangeAccent
-              )
-            ],
-          ),
-          SizedBox(
-            height: 110,
-            width:double.infinity,
-            child: Image.asset(image, fit: BoxFit.contain),
+      elevation: 3,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                imagePath,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+              ),
             ),
-          Text(
-              name, style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(width: 15),
-              Icon(Icons.star, color: Colors.orange, size: 25),
-              SizedBox(width: 4),
-              Text(rating.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(width: 15),
-              Text(price,style:TextStyle(fontSize: 18,fontWeight: FontWeight.normal))],
-          ),
-          
-            
-            
-        ],
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        // children: [
-        //   SidedBox(
-        //     borderRadius: BorderRadius.circular(12),
-        //     child: Image.asset(
-        //       image,
-        //       fit: BoxFit.cover,
-        //       height: 120,
-        //       width: double.infinity,
-        //     ),
-        //   ),
-        //   Padding(
-        //     padding: const EdgeInsets.all(8.0),
-        //     child: Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
-        //   ),
-        //   Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        //     child: Row(
-        //       children: [
-        //         
-        //       ],
-        //     ),
-        //   ),
-        // ],
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '$size',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.orange, size: 16),
+                          SizedBox(width: 3),
+                          Text('$rating'),
+                        ],
+                      ),
+                      Text('\$$price', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.favorite_border),
+          ],
+        ),
       ),
     );
   }
