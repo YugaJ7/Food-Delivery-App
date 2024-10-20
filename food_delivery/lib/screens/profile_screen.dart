@@ -1,7 +1,17 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/Components/navbar.dart';
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final String name;
+  final String email;
+  final File? profileImage;
+
+  const ProfileScreen({
+    super.key,
+    required this.name,
+    required this.email,
+    this.profileImage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,26 +33,28 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            const Center(
+            Center(
               child: Column(
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('assets/images/profile_pic.png'),
-                   ),
-
-                  SizedBox(height: 10),
+                    backgroundImage: profileImage != null
+                        ? FileImage(profileImage!)
+                        : const AssetImage('assets/images/profile_pic.png')
+                    as ImageProvider,
+                  ),
+                  const SizedBox(height: 10),
                   Text(
-                    'Albert Stefano Bajefski',
-                    style: TextStyle(
+                    name,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 11),
+                  const SizedBox(height: 11),
                   Text(
-                    'Albertstevano@gmail.com',
-                    style: TextStyle(
+                    email,
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
                     ),
@@ -86,12 +98,13 @@ class ProfileScreen extends StatelessWidget {
                     child: ListTile(
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        //child: Image.network(
-                         // '', // Replace with actual image URL
-                          //width: 50,
-                          //height: 50,
-                          //fit: BoxFit.cover,
-                        //),
+                        // Uncomment and provide an image URL if needed
+                        // child: Image.network(
+                        //   '', // Replace with actual image URL
+                        //   width: 50,
+                        //   height: 50,
+                        //   fit: BoxFit.cover,
+                        // ),
                       ),
                       title: const Text('Burger With Meat'),
                       subtitle: const Text('\$12,230 • 14 items'),
@@ -116,20 +129,57 @@ class ProfileScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SectionItem(
-                      icon: Icons.person, 
-                      title: 'Personal Data',
-                       routeName: '/personal_data'),
-                  SectionItem(
-                      icon: Icons.settings, 
-                      title: 'Settings',
-                      routeName: '/settings'),
-                  SectionItem(icon: Icons.credit_card, title: 'Extra Card', routeName: 'extra_card',),
-                  Divider(height: 30, thickness: 1),
-                  SectionItem(icon: Icons.help_center, title: 'Help Center', routeName: 'help_center',),
-                  SectionItem(icon: Icons.delete_forever, title: 'Request Account Deletion', routeName: 'acc_delete',),
-                  SectionItem(icon: Icons.add, title: 'Add another account', routeName: 'add_acc',),
+                  Text(
+                    'Profile',
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                  SizedBox(height: 10),
+                  Column(
+                    children: [
+                      SectionItem(
+                        icon: Icons.person,
+                        title: 'Personal Data',
+                        routeName: '/personal_data',
+                      ),
+                      SectionItem(
+                        icon: Icons.settings,
+                        title: 'Settings',
+                        routeName: '/settings',
+                      ),
+                      SectionItem(
+                        icon: Icons.credit_card,
+                        title: 'Extra Card',
+                        routeName: 'extra_card',
+                      ),
+                      Divider(height: 30, thickness: 1),
+                    ],
+                  ),
+                  Text(
+                    'Support',
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                  SizedBox(height: 10), // Optional spacing
+                  Column(
+                    children: [
+                      SectionItem(
+                        icon: Icons.help_center,
+                        title: 'Help Center',
+                        routeName: '/help_center',
+                      ),
+                      SectionItem(
+                        icon: Icons.delete_forever,
+                        title: 'Request Account Deletion',
+                        routeName: 'acc_delete',
+                      ),
+                      SectionItem(
+                        icon: Icons.add,
+                        title: 'Add another account',
+                        routeName: 'add_acc',
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -180,25 +230,25 @@ class ProfileScreen extends StatelessWidget {
             label: 'Profile',
           ),
         ],
-    onTap: (index) {
-    switch (index) {
-    case 0:
-    Navigator.pushNamed(context, '/home');
-    break;
-    case 1:
-    Navigator.pushNamed(context,'/security');
-    break;
-    case 2:
-    Navigator.pushNamed(context, '/notification');
-    break;
-    case 3:
-    Navigator.pushNamed(context, '/profile');
-    break;
-    default:
-    break;
-    }
-    }
-    )
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/home');
+              break;
+            case 1:
+              Navigator.pushNamed(context, '/security');
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/notification');
+              break;
+            case 3:
+              Navigator.pushNamed(context, '/profile');
+              break;
+            default:
+              break;
+          }
+        },
+      ),
     );
   }
 }
@@ -207,10 +257,14 @@ class ProfileScreen extends StatelessWidget {
 class SectionItem extends StatelessWidget {
   final IconData icon;
   final String title;
+  final String routeName; // Change dynamic to String for better type safety
 
-  final dynamic routeName;
-
-  const SectionItem({super.key, required this.icon, required this.title, required this.routeName});
+  const SectionItem({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.routeName,
+  });
 
   @override
   Widget build(BuildContext context) {
