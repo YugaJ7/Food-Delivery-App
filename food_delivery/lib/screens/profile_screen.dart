@@ -209,7 +209,7 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Navbar()
+     // bottomNavigationBar: Navbar()
     );
   }
 }

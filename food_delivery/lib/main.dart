@@ -12,6 +12,7 @@ import 'screens/acc_delete.dart';
 import 'screens/add_acc.dart';
 //import 'screens/security.dart';
 import 'screens/notification.dart';
+import 'Components/navbar.dart';
 void main() {
   runApp(FlutterApp());
 }   
@@ -22,7 +23,7 @@ class FlutterApp extends StatelessWidget {
       title: "Food App",
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) =>  HomeScreen(),
+        '/': (context) =>  Navbar(),
         '/home': (context) =>  HomeScreen(),
         '/profile': (context) => ProfileScreen(
           name: 'Default Name',

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:food_delivery/Components/product.dart';
 import 'package:food_delivery/Components/product_card.dart';
+import 'package:food_delivery/screens/order_detail.dart';  
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,6 @@ class HomeScreen extends StatelessWidget {
         children: [
           Stack(
             children: [
-              // Background image
               Container(
                 height: 270,
                 width: double.infinity,
@@ -117,27 +117,38 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(15.0,0.0,15.0,10.0),
-              child:GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: (100/140),
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                  ),
-                  scrollDirection: Axis.vertical,
-                  itemCount: MyProduct.allProducts.length,
-                  itemBuilder:(context, index) {
-                    final allProducts = MyProduct.allProducts[index];
-                    return ProductCard(product : allProducts);
-                  },
-                )
-            ),
-          )
+  child: Container(
+    padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
+    child: GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: (100 / 140),
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+      ),
+      scrollDirection: Axis.vertical,
+      itemCount: MyProduct.allProducts.length,
+      itemBuilder: (context, index) {
+        final product = MyProduct.allProducts[index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MenuScreen(product: product),
+              ),
+            );
+          },
+          child: ProductCard(product: product),
+        );
+      },
+    ),
+  ),
+)
+
         ],
       ),
-      bottomNavigationBar: Navbar(),
+     // bottomNavigationBar: Navbar(),
     );
   }
 }
