@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
-// import 'package:food_delivery/main.dart';
-// import 'package:food_delivery/screens/home_screen.dart';
-// import 'package:food_delivery/screens/orders.dart';
-// import 'package:food_delivery/screens/notification.dart';
-// import 'package:food_delivery/screens/profile_screen.dart';
+class Navbar extends StatefulWidget {
+  const Navbar({super.key});
 
-class Navbar extends StatelessWidget {
+  @override
+  State<Navbar> createState() => _NavbarState();
+}
+
+class _NavbarState extends State<Navbar> {
+  int _selectedIndex=0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
+        selectedItemColor: Colors.orangeAccent,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.orangeAccent),
+            icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.lock, color: Colors.orangeAccent),
+            icon: Icon(Icons.lock),
             label: 'Security',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications, color: Colors.orangeAccent),
+            icon: Icon(Icons.notifications),
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.orangeAccent),
+            icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
+    currentIndex: _selectedIndex,
     onTap: (index) {
     switch (index) {
     case 0:

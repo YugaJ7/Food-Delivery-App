@@ -191,7 +191,7 @@ class CategoryItem extends StatelessWidget {
             color: Colors.orange.withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Image.asset(iconPath, fit: BoxFit.contain),
+          child: Image.asset(iconPath, fit: BoxFit.fill),
         ),
         SizedBox(height: 5),
         Text(title, style: TextStyle(fontSize: 14)),

@@ -14,7 +14,7 @@ import 'screens/add_acc.dart';
 import 'screens/notification.dart';
 void main() {
   runApp(FlutterApp());
-} 
+}   
 class FlutterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

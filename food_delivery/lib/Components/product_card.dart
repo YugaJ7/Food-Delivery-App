@@ -13,8 +13,8 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 2.5, // Set width relative to screen size
-      margin: EdgeInsets.all(8.0), // Add margin around the card
+      width: MediaQuery.of(context).size.width / 2.5, 
+      margin: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: Colors.grey.shade300),
