@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/screens/login.dart';
-import 'package:food_delivery/Onboarding/onboarding1.dart';
-class OnboardingScreen extends StatelessWidget {
+class OnboardingFinal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,7 +8,7 @@ class OnboardingScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/on1.png',
+              'assets/images/on2.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -83,7 +82,7 @@ class OnboardingScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (BuildContext context) => OnboardingNext()));
+                        MaterialPageRoute(builder: (BuildContext context) => Login()));
                   },
                   child: Text(
                     'Next',

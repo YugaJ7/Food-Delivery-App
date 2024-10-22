@@ -12,7 +12,8 @@ import 'screens/acc_delete.dart';
 import 'screens/add_acc.dart';
 //import 'screens/security.dart';
 import 'screens/notification.dart';
-import 'Components/navbar.dart';
+//import 'Components/navbar.dart';
+import 'package:food_delivery/Onboarding/onboarding.dart';
 void main() {
   runApp(FlutterApp());
 }   
@@ -23,7 +24,7 @@ class FlutterApp extends StatelessWidget {
       title: "Food App",
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) =>  Navbar(),
+        '/': (context) =>  OnboardingScreen(),
         '/home': (context) =>  HomeScreen(),
         '/profile': (context) => ProfileScreen(
           name: 'Default Name',
