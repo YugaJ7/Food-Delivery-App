@@ -22,9 +22,7 @@ class MenuScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16.0),
             child: Container(
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.grey.shade200,width: 2)
-              ),
+                shape: BoxShape.circle),
               child: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
@@ -39,7 +37,6 @@ class MenuScreen extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.grey.shade200,width: 2),
                 ),
                 child: IconButton(
                   icon: Icon(Icons.share, color: Colors.black, size: 20,),
@@ -51,23 +48,40 @@ class MenuScreen extends StatelessWidget {
           elevation: 0, 
         ),
         backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+        body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    product.image,
-                    height: 300,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+              Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        product.image,
+                        height: 300,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Positioned(
+                      top: 10,
+                      right: 10,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                      ),
+                        child: IconButton(
+                          icon: Icon(Icons.favorite_border, color: Colors.orange, size: 27,),
+                          onPressed: () {
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
               SizedBox(height: 20),
               Text(
                 product.name,

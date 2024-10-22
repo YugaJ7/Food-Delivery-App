@@ -1,6 +1,6 @@
-import 'package:food_delivery/Components/navbar.dart';
-import 'package:food_delivery/main.dart';
-import 'package:food_delivery/screens/profile_screen.dart';
+// import 'package:food_delivery/Components/navbar.dart';
+// import 'package:food_delivery/main.dart';
+// import 'package:food_delivery/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:food_delivery/Components/product.dart';
@@ -80,18 +80,31 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              children: [
-                Text(
-                  'Find By Category',
-                  style: GoogleFonts.inter(
-                             textStyle: TextStyle(color: Colors.black,fontSize: 20, fontWeight: FontWeight.w600))
-                )
-              ],
-            ),
+            
+                child: 
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Find By Category',
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/orders');
+                        },
+                        child: const Text(
+                          'See All',
+                          style: TextStyle(color: Colors.orange),
+                        ),
+                      ),
+                    ],
+                  ),
           ),
           SizedBox(height: 16,),
-          // Categories section
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(

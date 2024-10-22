@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/Components/navbar.dart';
+
 class ProfileScreen extends StatelessWidget {
   final String name;
   final String email;

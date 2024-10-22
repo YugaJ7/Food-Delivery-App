@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/screens/home_screen.dart';
 import 'package:food_delivery/screens/notification.dart';
 import 'package:food_delivery/screens/profile_screen.dart';
-import 'package:food_delivery/screens/security.dart';
+import 'package:food_delivery/screens/cart.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
@@ -16,7 +16,7 @@ class _NavbarState extends State<Navbar> {
 
     final List<Widget> _pages = [
     HomeScreen(),
-    Security(),
+    Cart(),
     NotificationScreen(),
     ProfileScreen(name: 'Default Name',
           email: 'example@gmail.com',),
@@ -43,8 +43,8 @@ class _NavbarState extends State<Navbar> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.lock),
-            label: 'Security',
+            icon: Icon(Icons.shopping_bag),
+            label: 'Cart',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
