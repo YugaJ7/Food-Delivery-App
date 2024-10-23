@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-import '../Components/navbar.dart';
-
 class ProfileScreen extends StatelessWidget {
   final String name;
   final String email;
@@ -210,7 +208,6 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Navbar()
     );
   }
 }
