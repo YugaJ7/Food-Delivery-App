@@ -80,6 +80,7 @@ class _PersonalDataState extends State<PersonalData> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Personal Data'),
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -87,6 +88,7 @@ class _PersonalDataState extends State<PersonalData> {
           }
           ),
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(

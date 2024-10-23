@@ -42,6 +42,6 @@ class FlutterApp extends StatelessWidget {
         '/notification': (context) => NotificationScreen(),
 
       }
-    ); //MaterialApp
+    ); 
   }
 }

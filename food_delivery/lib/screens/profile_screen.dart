@@ -19,12 +19,11 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Center(
-          child: Text(
+        title: Text(
             'Profile Settings',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
-        ),
+          centerTitle: true,
         automaticallyImplyLeading: true,
       ),
       backgroundColor: Colors.white,
@@ -63,7 +62,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            // My Orders Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
@@ -92,6 +90,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Card(
                     elevation: 2,
+                    color: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),

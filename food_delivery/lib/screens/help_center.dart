@@ -14,6 +14,7 @@ class HelpCenterScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -97,6 +98,8 @@ class HelpCenterItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
+      color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -107,9 +110,7 @@ class HelpCenterItem extends StatelessWidget {
         ),
         title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(subtitle),
-        onTap: () {
-          // Navigate to respective category details page
-        },
+        onTap: () {},
       ),
     );
   }

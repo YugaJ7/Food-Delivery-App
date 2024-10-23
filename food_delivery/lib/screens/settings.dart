@@ -22,6 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
+      backgroundColor: Colors.white,
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [

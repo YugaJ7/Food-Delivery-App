@@ -2,89 +2,101 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/Components/product.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   final Product product;
   const MenuScreen({required this.product});
+
+  @override
+  _MenuScreenState createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  int _quantity = 1; 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'About This Menu',
-              style: GoogleFonts.inter(textStyle: TextStyle(color: Colors.black, fontSize: 20)),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'About This Menu',
+            style: GoogleFonts.inter(textStyle: TextStyle(color: Colors.black, fontSize: 20)),
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 16.0),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
             child: Container(
               decoration: BoxDecoration(
-                shape: BoxShape.circle),
+                shape: BoxShape.circle,
+              ),
               child: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                icon: Icon(Icons.share, color: Colors.black, size: 20),
+                onPressed: () {},
               ),
             ),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: IconButton(
-                  icon: Icon(Icons.share, color: Colors.black, size: 20,),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ],
-          elevation: 0, 
-        ),
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
+        ],
+        elevation: 0,
+      ),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        product.image,
-                        height: 300,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      widget.product.image,
+                      height: 300,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
                       ),
-                        child: IconButton(
-                          icon: Icon(Icons.favorite_border, color: Colors.orange, size: 27,),
-                          onPressed: () {
-                          },
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.favorite_border,
+                          color: Colors.orange,
+                          size: 27,
                         ),
+                        onPressed: () {},
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
               SizedBox(height: 20),
               Text(
-                product.name,
+                widget.product.name,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
@@ -92,14 +104,14 @@ class MenuScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    product.price,
+                    widget.product.price,
                     style: TextStyle(fontSize: 24, color: Colors.orangeAccent),
                   ),
                   Row(
                     children: [
                       Icon(Icons.star, color: Colors.orangeAccent, size: 20),
                       SizedBox(width: 5),
-                      Text(product.rating),
+                      Text(widget.product.rating),
                     ],
                   ),
                 ],
@@ -143,34 +155,39 @@ class MenuScreen extends StatelessWidget {
                       IconButton(
                         icon: Icon(Icons.remove_circle_outline),
                         onPressed: () {
-                          },
+                          setState(() {
+                            if (_quantity > 1) _quantity--; 
+                          });
+                        },
                       ),
                       Text(
-                        "4", // Display quantity dynamically
+                        _quantity.toString(), 
                         style: TextStyle(fontSize: 18),
                       ),
                       IconButton(
                         icon: Icon(Icons.add_circle_outline),
                         onPressed: () {
+                          setState(() {
+                            _quantity++; 
+                            });
                         },
                       ),
                     ],
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      iconColor: Colors.orangeAccent,
+                      backgroundColor: Colors.orangeAccent,
                       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     child: Row(
                       children: [
-                        Icon(Icons.shopping_cart),
+                        Icon(Icons.shopping_cart_outlined,color: Colors.white,),
                         SizedBox(width: 5),
-                        Text("Add to Cart"),
+                        Text("Add to Cart",style: TextStyle(color: Colors.white),),
                       ],
                     ),
                   ),
@@ -185,14 +202,13 @@ class MenuScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   TextButton(
-                    onPressed: () {
-                    },
-                    child: Text("See All"),
+                    onPressed: () {},
+                    child: Text("See All",style: TextStyle(color: Colors.orange),),
                   ),
                 ],
               ),
               SizedBox(
-                height: 100,
+                height: 150,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
@@ -209,28 +225,28 @@ class MenuScreen extends StatelessWidget {
     );
   }
 
-Widget buildRecommendedItem() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              product.image,
-              height: 70,
-              width: 70,
-              fit: BoxFit.cover,
-            ),
+  Widget buildRecommendedItem() {
+  return Padding(
+    padding: const EdgeInsets.only(right: 16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.asset(
+            widget.product.image,
+            height: 100,  
+            width: 100,   
+            fit: BoxFit.cover,
           ),
-          SizedBox(height: 8),
-          Text(
-            "Burger",
-            style: TextStyle(fontSize: 16),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Special Burger",   
+          style: TextStyle(fontSize: 16),
+        ),
+      ],
+    ),
+  );
+}
 }

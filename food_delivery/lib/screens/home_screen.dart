@@ -2,27 +2,34 @@
 // import 'package:food_delivery/main.dart';
 // import 'package:food_delivery/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
+//import 'package:food_delivery/screens/notification.dart';
+import 'package:food_delivery/screens/search.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:food_delivery/Components/product.dart';
 import 'package:food_delivery/Components/product_card.dart';
 import 'package:food_delivery/screens/order_detail.dart';  
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int selectedCategoryIndex = 0;
+
+  final List<Map<String, dynamic>> categories = [
+    {'iconPath': 'assets/images/c1.png', 'label': 'Burger'},
+    {'iconPath': 'assets/images/c2.png', 'label': 'Snack'},
+    {'iconPath': 'assets/images/c3.png', 'label': 'Drink'},
+    {'iconPath': 'assets/images/c4.png', 'label': 'Pizza'},
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   leading: Icon(Icons.menu, color: Colors.black),
-      //   actions: [
-      //     Icon(Icons.search, color: Colors.black),
-      //     SizedBox(width: 10),
-      //     Icon(Icons.shopping_cart, color: Colors.black),
-      //     SizedBox(width: 10),
-      //   ],
-      // ),
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
@@ -40,19 +47,51 @@ class HomeScreen extends StatelessWidget {
               Positioned(
                 top: 50,
                 left: 16,
-                
+                right: 16,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                           'Your Location',
-                             style: GoogleFonts.inter(
-                             textStyle: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w600))),
-                        SizedBox(width: 5),
-                        Icon(Icons.keyboard_arrow_down_sharp, color: Colors.white, size: 30)
-
+                        Row(
+                          children: [
+                            Text(
+                              'Your Location',
+                              style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600)),
+                            ),
+                            SizedBox(width: 5),
+                            Icon(Icons.keyboard_arrow_down_sharp,
+                                color: Colors.white, size: 30),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SearchFoodScreen(),
+                                    ));
+                                },
+                                child: Icon(Icons.search, color: Colors.white, size: 30),
+                              ),
+                              SizedBox(width: 10),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     Navigator.push(context,
+                              //        MaterialPageRoute(builder: (BuildContext context) => NotificationScreen()));
+                              //    },
+                              //   child: Icon(Icons.notifications_outlined,
+                              //       color: Colors.white, size: 30),
+                              // ),
+                          ],
+                        ),
                       ],
                     ),
                     SizedBox(height: 15),
@@ -108,59 +147,55 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CategoryItem(
-                  iconPath: 'assets/images/c1.png',
-                  title: 'Burger',
-                ),
-                CategoryItem(
-                  iconPath: 'assets/images/c3.png',
-                  title: 'Snack',
-                ),
-                CategoryItem(
-                  iconPath: 'assets/images/c3.png',
-                  title: 'Drink',
-                ),
-                CategoryItem(
-                  iconPath: 'assets/images/c4.png',
-                  title: 'Pizza',
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-  child: Container(
-    padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
-    child: GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: (100 / 140),
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-      ),
-      scrollDirection: Axis.vertical,
-      itemCount: MyProduct.allProducts.length,
-      itemBuilder: (context, index) {
-        final product = MyProduct.allProducts[index];
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MenuScreen(product: product),
+                children: List.generate(categories.length, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedCategoryIndex = index;
+                      });
+                    },
+                    child: CategoryItem(
+                      iconPath: categories[index]['iconPath'],
+                      label: categories[index]['label'],
+                      isSelected: selectedCategoryIndex == index,
+                    ),
+                  );
+                }),
               ),
-            );
-          },
-          child: ProductCard(product: product),
-        );
-      },
-    ),
-  ),
-)
-
+          ),
+          SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
+              //height: 450, 
+              child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(), 
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: (100 / 140),
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                ),
+                itemCount: MyProduct.allProducts.length,
+                itemBuilder: (context, index) {
+                  final product = MyProduct.allProducts[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MenuScreen(product: product),
+                        ),
+                      );
+                    },
+                    child: ProductCard(product: product),
+                  );
+                },
+              ),
+            ),
         ],
       ),
+      )
      // bottomNavigationBar: Navbar(),
     );
   }
@@ -191,17 +226,21 @@ class MyProduct {
       image: 'assets/images/b1.png',
       rating: '4.9',
       distance: '190m'),
+      Product(
+      name: 'Oridnary Burgers',
+      price: '\$29,990',
+      image: 'assets/images/b1.png',
+      rating: '4.9',
+      distance: '190m'),
   ];
 }
 
 class CategoryItem extends StatelessWidget {
   final String iconPath;
-  final String title;
+  final String label;
+  final bool isSelected;
 
-  const CategoryItem({
-    required this.iconPath,
-    required this.title,
-  });
+  const CategoryItem({required this.iconPath, required this.label, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -210,15 +249,16 @@ class CategoryItem extends StatelessWidget {
         Container(
           width: 60,
           height: 60,
+          margin: EdgeInsets.symmetric(horizontal: 15),
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.orange.withOpacity(0.1),
+            color: isSelected ? Colors.orange.withOpacity(0.1) : Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Image.asset(iconPath, fit: BoxFit.fill),
+          child: Image.asset(iconPath, fit: BoxFit.cover),
         ),
         SizedBox(height: 5),
-        Text(title, style: TextStyle(fontSize: 14)),
+        Text(label, style: TextStyle(fontSize: 14, color: isSelected ? Colors.orange : Colors.black)),
       ],
     );
   }

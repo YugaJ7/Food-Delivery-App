@@ -52,7 +52,7 @@ class OnboardingFinal extends StatelessWidget {
                         width: 8,
                         height: 8,
                         decoration: BoxDecoration(
-                          color: index == 0 ? Colors.white : Colors.white38,
+                          color: index == 2 ? Colors.white : Colors.white38,
                           shape: BoxShape.circle,
                         ),
                       );
