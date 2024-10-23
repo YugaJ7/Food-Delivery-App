@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/screens/cart.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchFoodScreen extends StatefulWidget {
@@ -40,7 +41,10 @@ class _SearchFoodScreenState extends State<SearchFoodScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_cart, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (BuildContext context) => Cart()));
+            },
           )
         ],
       ),
