@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-import '../Components/navbar.dart';
-
 class ProfileScreen extends StatelessWidget {
   final String name;
   final String email;
@@ -235,7 +233,7 @@ class SectionItem extends StatelessWidget {
       ),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: () {
-        Navigator.pushNamed(context, routeName);
+        Navigator.pushNamed(context, '/home');
       },
     );
   }
