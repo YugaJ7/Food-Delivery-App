@@ -38,18 +38,6 @@ class _RegisterState extends State<Register> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Email Address',
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(height: 5),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email Address',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
                   'User Name',
                   style: TextStyle(fontSize: 16),
                 ),
@@ -57,7 +45,37 @@ class _RegisterState extends State<Register> {
                 TextField(
                   decoration: InputDecoration(
                     labelText: 'User Name',
+                    labelStyle: const TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Email Address',
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 5),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Email Address',
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -70,7 +88,16 @@ class _RegisterState extends State<Register> {
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                     labelText: 'Password',
+                    labelStyle: const TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _obscureText
@@ -154,15 +181,27 @@ class _RegisterState extends State<Register> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.g_mobiledata, size: 40),
+                      icon: Image.asset(
+                        'assets/images/g.png', 
+                        width: 60,  
+                        height: 60,
+                      ),
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.facebook, size: 40),
+                      icon: Image.asset(
+                        'assets/images/f.png', 
+                        width: 60,  
+                        height: 60,
+                      ),
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.apple, size: 40),
+                      icon: Image.asset(
+                        'assets/images/a.png', 
+                        width: 60,  
+                        height: 60,
+                      ),
                     ),
                   ],
                 ),

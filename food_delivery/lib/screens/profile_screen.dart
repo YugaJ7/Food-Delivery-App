@@ -126,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            // Profile and Support Sections
+            
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
@@ -161,7 +161,7 @@ class ProfileScreen extends StatelessWidget {
                     'Support',
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
-                  SizedBox(height: 10), // Optional spacing
+                  SizedBox(height: 10), 
                   Column(
                     children: [
                       SectionItem(
@@ -185,7 +185,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            // Sign Out Button
             Center(
               child: ElevatedButton.icon(
                 onPressed: () {
@@ -210,16 +209,14 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Navbar()
     );
   }
 }
 
-// Widget for section items
 class SectionItem extends StatelessWidget {
   final IconData icon;
   final String title;
-  final String routeName; // Change dynamic to String for better type safety
+  final String routeName; 
 
   const SectionItem({
     super.key,

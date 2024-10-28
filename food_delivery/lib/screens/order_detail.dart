@@ -4,14 +4,25 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MenuScreen extends StatefulWidget {
   final Product product;
-  const MenuScreen({required this.product});
+  final List<Product> recommendations;
+  const MenuScreen({required this.product,required this.recommendations,});
 
   @override
   _MenuScreenState createState() => _MenuScreenState();
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+  bool isFavorited = false;
   int _quantity = 1; 
+  List<Product> filteredRecommendations = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredRecommendations = widget.recommendations
+        .where((p) => p.name != widget.product.name)
+        .toList(); 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +32,7 @@ class _MenuScreenState extends State<MenuScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'About This Menu',
-            style: GoogleFonts.inter(textStyle: TextStyle(color: Colors.black, fontSize: 20)),
+            style: GoogleFonts.inter(textStyle: TextStyle(color: Colors.black, fontSize: 20,fontWeight: FontWeight.bold)),
           ),
         ),
         centerTitle: true,
@@ -84,11 +95,15 @@ class _MenuScreenState extends State<MenuScreen> {
                       ),
                       child: IconButton(
                         icon: Icon(
-                          Icons.favorite_border,
-                          color: Colors.orange,
+                          isFavorited ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorited ? Colors.orangeAccent : Colors.orangeAccent,
                           size: 27,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                      isFavorited = !isFavorited;
+                    });
+                        },
                       ),
                     ),
                   ),
@@ -143,7 +158,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
               SizedBox(height: 8),
               Text(
-                "Burger With Meat is a typical food from our restaurant that is much in demand by many people, this is very recommended for you.",
+                widget.product.description,
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
               SizedBox(height: 20),
@@ -209,13 +224,13 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
               SizedBox(
                 height: 150,
-                child: ListView(
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    buildRecommendedItem(),
-                    buildRecommendedItem(),
-                    buildRecommendedItem(),
-                  ],
+                  itemCount: filteredRecommendations.length,
+                  itemBuilder: (context, index) {
+                    final recommendation = filteredRecommendations[index];
+                    return buildRecommendedItem(recommendation);
+                  },
                 ),
               ),
             ],
@@ -225,7 +240,7 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
-  Widget buildRecommendedItem() {
+  Widget buildRecommendedItem(Product product) {
   return Padding(
     padding: const EdgeInsets.only(right: 16.0),
     child: Column(
@@ -234,7 +249,7 @@ class _MenuScreenState extends State<MenuScreen> {
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.asset(
-            widget.product.image,
+            product.image,
             height: 100,  
             width: 100,   
             fit: BoxFit.cover,
@@ -242,7 +257,7 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
         SizedBox(height: 5),
         Text(
-          "Special Burger",   
+          product.name,   
           style: TextStyle(fontSize: 16),
         ),
       ],

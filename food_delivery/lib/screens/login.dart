@@ -50,7 +50,16 @@ class _LoginState extends State<Login> {
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email Address',
+                    labelStyle: const TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -72,7 +81,16 @@ class _LoginState extends State<Login> {
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                     labelText: 'Password',
+                    labelStyle: const TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _obscureText
@@ -139,15 +157,27 @@ class _LoginState extends State<Login> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.g_mobiledata),
+                      icon: Image.asset(
+                        'assets/images/g.png', 
+                        width: 60,  
+                        height: 60,
+                      ),
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.facebook),
+                      icon: Image.asset(
+                        'assets/images/f.png', 
+                        width: 60,  
+                        height: 60,
+                      ),
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.apple),
+                      icon: Image.asset(
+                        'assets/images/a.png', 
+                        width: 60,  
+                        height: 60,
+                      ),
                     ),
                   ],
                 ),

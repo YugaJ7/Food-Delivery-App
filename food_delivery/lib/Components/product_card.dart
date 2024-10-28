@@ -10,6 +10,8 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+  bool isFavorited = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,12 +49,19 @@ class _ProductCardState extends State<ProductCard> {
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
+                  child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isFavorited = !isFavorited;
+                    });
+                  },
                   child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.orangeAccent,
+                    isFavorited ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorited ? Colors.orangeAccent : Colors.orangeAccent,
                   ),
                 ),
               ),
+              )
             ],
           ),
           Padding(

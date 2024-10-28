@@ -129,8 +129,8 @@ class _SearchFoodScreenState extends State<SearchFoodScreen> {
               child: ListView(
                 children: [
                   RecentOrderItem(
-                    imagePath: 'assets/images/b1.png',
-                    name: 'Ordinary Burgers',
+                    imagePath: 'assets/images/b4.png',
+                    name: 'Cheese Burgers',
                     restaurant: 'Burger Restaurant',
                     rating: '4.9',
                     distance: '190m',

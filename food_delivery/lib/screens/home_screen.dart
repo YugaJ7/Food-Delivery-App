@@ -7,7 +7,8 @@ import 'package:food_delivery/screens/search.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:food_delivery/Components/product.dart';
 import 'package:food_delivery/Components/product_card.dart';
-import 'package:food_delivery/screens/order_detail.dart';  
+import 'package:food_delivery/screens/order_detail.dart'; 
+import 'package:geolocator/geolocator.dart'; 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -17,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedCategoryIndex = 0;
+  String userLocation = 'Fetching location...';
 
   final List<Map<String, dynamic>> categories = [
     {'iconPath': 'assets/images/c1.png', 'label': 'Burger'},
@@ -24,6 +26,93 @@ class _HomeScreenState extends State<HomeScreen> {
     {'iconPath': 'assets/images/c3.png', 'label': 'Drink'},
     {'iconPath': 'assets/images/c4.png', 'label': 'Pizza'},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserLocation();
+  }
+
+  Future<void> _getUserLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      setState(() {
+        userLocation = 'Location services are disabled';
+      });
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() {
+          userLocation = 'Location permission denied';
+        });
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      setState(() {
+        userLocation = 'Location permission permanently denied';
+      });
+      return;
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      userLocation = 'Lat: ${position.latitude}, Long: ${position.longitude}';
+    });
+  }
+
+  final List<Product> burgers = [
+    Product(name: 'Ordinary Burger', price: '\$29.99', image: 'assets/images/b1.png', rating: '4.9', distance: '190m',description: 'Sink your teeth into our timeless classic cheeseburger. Juicy beef patty, perfectly grilled and layered with melted cheddar cheese, crisp lettuce, ripe tomato, and our signature sauce, all nestled in a freshly toasted brioche bun. Simple, satisfying, and endlessly delicious!'),
+    Product(name: 'Burger with Meat', price: '\$35.99', image: 'assets/images/b2.png', rating: '4.7', distance: '500m',description: 'Indulge in smoky flavors with our BBQ Bacon Burger. A char-grilled beef patty topped with smoky bacon, melted pepper jack cheese, crispy onion rings, and tangy barbecue sauce, all served on a soft sesame seed bun. The perfect balance of savory and sweet in every bite!'),
+    Product(name: 'Special Buger', price: '\$15.99', image: 'assets/images/b3.png', rating: '4.7', distance: '700m',description: 'Delicious and plant-based! Our Vegan Avocado Burger boasts a hearty black bean and quinoa patty, topped with fresh avocado slices, mixed greens, juicy tomato, and a vegan garlic aioli. Served on a toasted whole-grain bun, its a wholesome and tasty choice for everyone.'),
+    Product(name: 'Cheese Burger', price: '\$19.99', image: 'assets/images/b4.png', rating: '4.7', distance: '100m',description: 'For the heat seekers! Our Spicy Jalapeño Burger features a seasoned beef patty, spicy pepper jack cheese, sliced jalapeños, crunchy lettuce, and zesty chipotle mayo. All stacked on a toasted bun, its a flavor-packed experience with just the right kick.'),
+  ];
+
+  final List<Product> snacks = [
+    Product(name: 'Apple Cookie', price: '\$5.99', image: 'assets/images/s1.png', rating: '4.8', distance: '150m',description: 'A delightful twist on a classic treat! Our Apple Cookie combines chewy cookie dough with chunks of fresh, juicy apples and a hint of cinnamon. Baked to perfection, each bite offers a warm, spiced flavor with a soft, tender texture and a subtle crunch, making it an irresistible, comforting snack.'),
+    Product(name: 'Cheese Nachos', price: '\$7.99', image: 'assets/images/s2.png', rating: '4.8', distance: '250m',description: 'Get ready for the ultimate cheesy indulgence! Our Cheese Nachos feature crispy tortilla chips smothered in creamy, melted cheddar and topped with a sprinkle of spicy jalapeños, fresh pico de gallo, and a dollop of sour cream. Perfectly layered for that gooey, crunchy, savory taste in every bite the ultimate snack for cheese lovers!'),
+  ];
+
+  final List<Product> drinks = [
+    Product(name: 'Watermelon Mojito', price: '\$3.99', image: 'assets/images/d1.png', rating: '4.7', distance: '120m',description: 'Refresh yourself with our vibrant Watermelon Mojito! This drink combines juicy watermelon purée, fresh mint leaves, and a splash of zesty lime, muddled to perfection and topped with a hint of sparkling soda. Light, sweet, and delightfully cooling, its the perfect tropical twist to lift your spirits.'),
+    Product(name: 'Lime Mojito', price: '\$3.99', image: 'assets/images/d2.png', rating: '4.1', distance: '120m',description: 'Our classic Lime Mojito is a crisp, refreshing blend of fresh lime juice, muddled mint leaves, and a touch of sweetness, balanced with bubbly soda water. With a bright citrusy flavor and minty freshness in every sip, its a timeless drink thats perfect for any occasion.'),
+  ];
+
+  final List<Product> pizzas = [
+    Product(name: 'Pepperoni Pizza', price: '\$12.99', image: 'assets/images/p1.png', rating: '4.9', distance: '100m',description: 'Savor the bold, classic flavor of our Pepperoni Pizza! This favorite features a golden, crispy crust topped with rich tomato sauce, melted mozzarella cheese, and generous layers of spicy pepperoni slices. With each bite, you get the perfect combination of savory, cheesy, and spicy flavors.'),
+    Product(name: 'Farm Pizza', price: '\$11.99', image: 'assets/images/p2.png', rating: '4.8', distance: '270m',description: 'Fresh from the farm to your table! Our Farm Pizza is loaded with a colorful mix of garden-fresh vegetables: juicy tomatoes, crisp bell peppers, sweet corn, mushrooms, and olives, all atop a bed of melted mozzarella on a hand-stretched crust. Its a wholesome, veggie-packed pizza thats as satisfying as it is delicious.'),
+  ];
+
+  List<Product> _getRecommendedProducts(Product selectedProduct) {
+    List<Product> allProducts = [...burgers, ...snacks, ...drinks, ...pizzas]; 
+    allProducts.shuffle();
+    return allProducts.take(4).toList(); 
+  }
+
+  List<Product> getCurrentCategoryProducts() {
+    switch (selectedCategoryIndex) {
+      case 0:
+        return burgers;
+      case 1:
+        return snacks;
+      case 2:
+        return drinks;
+      case 3:
+        return pizzas;
+      default:
+        return burgers;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Icon(Icons.location_on_outlined, color: Colors.white, size: 30),
                         SizedBox(width: 5),
                           Text(
+                           //userLocation,
                            'New York City',
                              style: GoogleFonts.inter(
                              textStyle: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w600))),
@@ -143,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
           ),
-          SizedBox(height: 16,),
+          //SizedBox(height: 16,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
@@ -163,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
           ),
-          SizedBox(height: 16),
+          //SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
               //height: 450, 
@@ -176,15 +266,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                 ),
-                itemCount: MyProduct.allProducts.length,
+                itemCount:  getCurrentCategoryProducts().length,
                 itemBuilder: (context, index) {
-                  final product = MyProduct.allProducts[index];
+                  final product = getCurrentCategoryProducts()[index];
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MenuScreen(product: product),
+                          builder: (context) => MenuScreen(product: product,recommendations: _getRecommendedProducts(product),),
                         ),
                       );
                     },
@@ -199,40 +289,6 @@ class _HomeScreenState extends State<HomeScreen> {
      // bottomNavigationBar: Navbar(),
     );
   }
-}
-class MyProduct {
-  static List<Product> allProducts = [
-    Product(
-      name: 'Oridnary Burgers',
-      price: '\$29,990',
-      image: 'assets/images/b1.png',
-      rating: '4.9',
-      distance: '190m'),
-      Product(
-      name: 'Oridnary Burgers',
-      price: '\$29,990',
-      image: 'assets/images/b1.png',
-      rating: '4.9',
-      distance: '190m'),
-      Product(
-      name: 'Oridnary Burgers',
-      price: '\$29,990',
-      image: 'assets/images/b1.png',
-      rating: '4.9',
-      distance: '190m'),
-      Product(
-      name: 'Oridnary Burgers',
-      price: '\$29,990',
-      image: 'assets/images/b1.png',
-      rating: '4.9',
-      distance: '190m'),
-      Product(
-      name: 'Oridnary Burgers',
-      price: '\$29,990',
-      image: 'assets/images/b1.png',
-      rating: '4.9',
-      distance: '190m'),
-  ];
 }
 
 class CategoryItem extends StatelessWidget {
@@ -260,80 +316,6 @@ class CategoryItem extends StatelessWidget {
         SizedBox(height: 5),
         Text(label, style: TextStyle(fontSize: 14, color: isSelected ? Colors.orange : Colors.black)),
       ],
-    );
-  }
-}
-
-class FoodItemCard extends StatelessWidget {
-  final String imagePath;
-  final String name;
-  final double price;
-  final double rating;
-  final String size;
-
-  const FoodItemCard({
-    required this.imagePath,
-    required this.name,
-    required this.price,
-    required this.rating,
-    required this.size,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.only(bottom: 15),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      elevation: 3,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                imagePath,
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '$size',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.orange, size: 16),
-                          SizedBox(width: 3),
-                          Text('$rating'),
-                        ],
-                      ),
-                      Text('\$$price', style: TextStyle(fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Icon(Icons.favorite_border),
-          ],
-        ),
-      ),
     );
   }
 }

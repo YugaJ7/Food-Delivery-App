@@ -99,7 +99,7 @@ class _PersonalDataState extends State<PersonalData> {
                 GestureDetector(
                   onTap: _pickImage,
                   child: CircleAvatar(
-                    radius: 50,
+                    radius: 70,
                     backgroundImage: _selectedImage != null
                         ? FileImage(_selectedImage!)
                         : NetworkImage(
@@ -184,7 +184,7 @@ class _PersonalDataState extends State<PersonalData> {
                     minimumSize: Size(double.infinity, 50),
                   ),
                   onPressed: _submitForm,
-                  child: Text('Save'),
+                  child: Text('Save',style: TextStyle(color: Colors.white, fontSize: 20),),
                 ),
               ],
             ),

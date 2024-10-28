@@ -10,13 +10,13 @@ class _CartState extends State<Cart> {
   List<Map<String, dynamic>> cartItems = [
     {
       'name': 'Burger With Meat',
-      'price': 12230,
-      'quantity': 1,
-      'imagePath': 'assets/images/b1.png',
+      'price': 35.99,
+      'quantity': 2,
+      'imagePath': 'assets/images/b2.png',
     },
     {
       'name': 'Ordinary Burgers',
-      'price': 12530,
+      'price': 29.99,
       'quantity': 1,
       'imagePath': 'assets/images/b1.png',
     },
